@@ -1,0 +1,52 @@
+#include <stdio.h>
+
+#define V 4
+#define INF 9999
+void printMatrix(int matrix[][V]);
+// Implementing floyd warshall algorithm
+void floydWarshall(int graph[][V]) {
+int matrix[V][V], i, j, k;
+for (i = 0; i < V; i++)
+for (j = 0; j < V; j++)
+matrix[i][j] = graph[i][j];
+
+for (k = 0; k < V; k++) {
+for (i = 0; i < V; i++) {
+for (j = 0; j < V; j++) {
+
+if (matrix[i][k] + matrix[k][j] < matrix[i][j])
+matrix[i][j] = matrix[i][k] + matrix[k][j];
+}
+}
+}
+printMatrix(matrix);
+}
+void printMatrix(int matrix[][V]) {
+for (int i = 0; i < V; i++) {
+for (int j = 0; j < V; j++) {
+if(i!=j){
+if(matrix[i][j]==INF){
+    printf("no path exist from %d to %d\n",i,j);
+}else{
+    printf("shortest path from %d to %d is %d\n",i,j,matrix[i][j]);
+}
+
+}
+}
+}
+}
+int main() {
+    int n;
+    printf("enter n");
+    scanf("%d",&n);
+    int graph[n][n];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            scanf("%d",&graph[i][j]);
+        }
+    }
+    floydWarshall(graph);
+    return 0;
+
+
+}

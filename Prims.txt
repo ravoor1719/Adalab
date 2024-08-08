@@ -1,0 +1,51 @@
+#include<stdio.h>
+void prim(int g[10][10],int nodes)
+{
+    int total =0;
+    int i,t[10],k,d,j,v1,v2;
+    for(i=0;i<nodes;i++)
+    {
+        t[i]=0;
+    }
+    t[0]=1;
+    for(k=1;k<nodes;k++)
+    {
+        d=999;
+        for(i=0;i<nodes;i++)
+        {
+            for(j=0;j<nodes;j++)
+            {
+                if(g[i][j] && ((t[i] && !t[j]) || (t[j] && !t[i])))
+                {
+                    if(g[i][j]<d)
+                    {
+                        d=g[i][j];
+                        v1=i;
+                        v2=j;
+                    }
+                }
+            }
+        }
+        printf("%d->%d:%d\n",v1,v2,d);
+        t[v1]=1;
+        t[v2]=1;
+        total+=d;
+    }
+    printf("Total cost = %d\n",total);
+}
+int main()
+{
+    int n ,g[10][10];
+    printf("Enter the number of nodes:");
+    scanf("%d",&n);
+    printf("Enter the adjacency matrix:\n");
+    for(int i =0;i<n;i++)
+    {
+        for(int j =0;j<n;j++)
+        {
+            scanf("%d",&g[i][j]);
+        }
+    }
+    prim(g,n);
+
+}
